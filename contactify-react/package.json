@@ -16,6 +16,7 @@
     "@types/node": "^16.18.58",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",
+    "oas-to-ts": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -24,6 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "generate:specs": "curl ${npm_config_openapiUrl:-http://localhost:8080/q/openapi} -o ./docs/openapiSpecs.yaml && npx oas-to-ts -i ./docs/openapiSpecs.yaml -o ./src/interfaces/openapiSpecs.ts",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
