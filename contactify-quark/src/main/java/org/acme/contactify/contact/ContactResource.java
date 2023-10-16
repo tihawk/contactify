@@ -7,33 +7,47 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.jwt.Claim;
+import org.eclipse.microprofile.jwt.Claims;
+import org.jboss.logging.Logger;
 
 @Path("/contact")
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
 @Transactional(Transactional.TxType.REQUIRED)
 public class ContactResource {
+    final private static Logger logger = Logger.getLogger(ContactResource.class);
 
     @Inject
     ContactService contactService;
+    @Inject
+    @Claim(standard = Claims.sub)
+    String subject;
 
     @POST
     @RolesAllowed("USER")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Contact createContact(Contact _contact) {
-        Contact contact = contactService.storeContact(_contact);
+        Contact contact = contactService.storeContact(_contact, subject);
         return contact;
     }
 
     @PUT
     @RolesAllowed("USER")
-    public Response updateContact(Contact _contact) {
-        return Response.status(Response.Status.NOT_IMPLEMENTED).build();
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Contact updateContact(@PathParam("id") Long id, Contact _contact) {
+        Contact contact = contactService.updateContact(_contact, subject);
+        return contact;
     }
 
     @DELETE
     @RolesAllowed("USER")
-    public Response deleteContact(Contact _contact) {
-        return Response.status(Response.Status.NOT_IMPLEMENTED).build();
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Contact deleteContact(@PathParam("id") Long id, Contact _contact) {
+        Contact contact = contactService.deleteContact(_contact, subject);
+        return contact;
     }
 
     @GET
