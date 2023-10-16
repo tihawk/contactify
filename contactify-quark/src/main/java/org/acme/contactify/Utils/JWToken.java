@@ -22,7 +22,7 @@ public class JWToken {
         long currentTimeInSecs = currentTimeInSecs();
 
         Set<String> groups = new HashSet<>();
-        for (var role : roles) groups.add(role.toString());
+        for (var role : roles) groups.add(role.getRole());
 
         claimsBuilder.issuer(issuer);
         claimsBuilder.subject(username);
