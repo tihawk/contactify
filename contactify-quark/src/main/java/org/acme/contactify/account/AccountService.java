@@ -26,16 +26,19 @@ public class AccountService {
         return dbAccount;
     }
     
-    public String login(AuthRequestDTO authRequest) {
-        Account u = Account.findByUsername(authRequest.getUsername());
-        if (u != null && u.getPassword().equals(encryptPassword(authRequest.getPassword()))) {
+    public AuthResponseDTO login(AuthRequestDTO authRequest) {
+        AuthResponseDTO res = new AuthResponseDTO();
+        Account account = Account.findByUsername(authRequest.getUsername());
+        if (account != null && account.getPassword().equals(encryptPassword(authRequest.getPassword()))) {
             try {
-                return JWToken.generateToken(u.getUsername(), u.getRoles(), duration, issuer);
+                res.setUsername(account.getUsername());
+                res.setAuthToken(JWToken.generateToken(account.getUsername(), account.getRoles(), duration, issuer));
+                return res;
             } catch (Exception e) {
-                return null;
+                return res;
             }
         } else {
-            return null;
+            return res;
         }
     }
 

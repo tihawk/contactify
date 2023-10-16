@@ -1,6 +1,7 @@
 import { HandlerFnsFromRootSpec } from 'oas-to-ts'
 import { Spec } from '../interfaces/openapiSpecs'
-import { AuthRequestDTO } from '../interfaces/index'
+import { AuthRequestDTO, AuthResponseDTO } from '../interfaces/index'
+const API_URL = process.env.REACT_APP_API_URL
 
 type HandlerFns<Context> = HandlerFnsFromRootSpec<Spec, Context>
 export const userHandlers: Pick<HandlerFns<{}>,
@@ -9,7 +10,7 @@ export const userHandlers: Pick<HandlerFns<{}>,
   | '/user/ping'> = {
   '/user/login': {
     post: async (ctx: AuthRequestDTO) => {
-      const response = await fetch('/user/login', {
+      const response = await fetch(API_URL + '/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,24 +19,24 @@ export const userHandlers: Pick<HandlerFns<{}>,
         body: JSON.stringify(ctx),
       })
         .then((res) => res.json())
-        .then((content: String) => ({
+        .then((content: AuthResponseDTO) => ({
           httpCode: 'default',
           contentType: 'application/json',
           content,
-        } as never))
+        } as any))
         .catch((e) => {
           return {
             httpCode: 'error',
             contentType: 'application/json',
-            content: '' as String,
-          } as never
+            content: {} as AuthResponseDTO,
+          } as any
         })
       return response
     },
   },
   '/user/ping': {
     get: async () => {
-      const response = await fetch('/user/ping')
+      const response = await fetch(API_URL + '/user/ping')
       return response
         .json()
         .then((content: String) => ({
@@ -54,7 +55,7 @@ export const userHandlers: Pick<HandlerFns<{}>,
   },
   '/user/register': {
     post: async (ctx: AuthRequestDTO) => {
-      const response = await fetch('/user/login', {
+      const response = await fetch(API_URL + '/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

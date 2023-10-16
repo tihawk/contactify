@@ -112,6 +112,10 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseDTO'
   /user/ping:
     get:
       tags:
@@ -175,6 +179,13 @@ components:
           type: string
         password:
           type: string
+    AuthResponseDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        authToken:
+          type: string
     Contact:
       type: object
       properties:
@@ -193,5 +204,4 @@ components:
     SecurityScheme:
       type: http
       description: Authentication
-      scheme: bearer
-      bearerFormat: JWT
+      scheme: basic

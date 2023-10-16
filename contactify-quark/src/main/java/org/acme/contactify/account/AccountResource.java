@@ -13,6 +13,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 import org.jboss.logging.Logger;
 
 @Path("/user")
@@ -37,13 +38,13 @@ public class AccountResource {
     @POST
     @Path("/login")
     @PermitAll
-    @Produces(MediaType.TEXT_PLAIN)
+    @APIResponseSchema(AuthResponseDTO.class)
     public Response login(AuthRequestDTO _authRequest) {
-        String token = accountService.login(_authRequest);
-        if (StringUtil.isNullOrEmpty(token)) {
+        AuthResponseDTO res = accountService.login(_authRequest);
+        if (StringUtil.isNullOrEmpty(res.getAuthToken())) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
-        return Response.ok(token).build();
+        return Response.ok(res).build();
     }
 
     @GET

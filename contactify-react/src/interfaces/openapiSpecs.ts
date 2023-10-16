@@ -112,6 +112,11 @@ export interface Spec {
             }
           }
         readonly responses: {
+          readonly "200": {
+            readonly content: {
+              readonly "application/json": Spec["components"]["schemas"]["AuthResponseDTO"]
+            }
+          }
         }
       }
     }
@@ -176,6 +181,9 @@ readonly "role"?: string;
  })
       readonly AuthRequestDTO: ({ readonly "username"?: string;
 readonly "password"?: string;
+ })
+      readonly AuthResponseDTO: ({ readonly "username"?: string;
+readonly "authToken"?: string;
  })
       readonly Contact: ({ readonly "id"?: number;
 readonly "firstName"?: string;
