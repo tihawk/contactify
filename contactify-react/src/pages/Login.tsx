@@ -1,6 +1,7 @@
+import { Button, Typography } from '@mui/material';
 import { useUser } from '../hooks/useUser';
 
-function LoginPage() {
+function Login() {
   const { changeUser } = useUser();
 
   const handleLogin = () => {
@@ -11,11 +12,11 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <button onClick={handleLogin}>Login</button>
-    </div>
+    <>
+      <Typography variant="h2">Login</Typography>
+      <Button onClick={handleLogin}>Login</Button>
+    </>
   );
 };
 
-export default LoginPage
+export default Login

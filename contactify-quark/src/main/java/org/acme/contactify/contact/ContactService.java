@@ -5,6 +5,8 @@ import org.acme.contactify.MultipleResults;
 import org.acme.contactify.account.Account;
 import org.jboss.logging.Logger;
 
+import java.util.List;
+
 @RequestScoped
 public class ContactService {
     final private static Logger logger = Logger.getLogger(ContactService.class);
@@ -56,8 +58,8 @@ public class ContactService {
         return dbContact;
     }
 
-    public MultipleResults<Contact> listContactsByUser(String _user) {
-        // TODO find user id
-        return null;
+    public List<Contact> listContactsByUser(String _subject) {
+        Account owner = Account.find("username", _subject).firstResult();
+        return Contact.findByOwnerId(owner);
     }
 }

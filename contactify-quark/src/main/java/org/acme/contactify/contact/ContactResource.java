@@ -11,6 +11,8 @@ import org.eclipse.microprofile.jwt.Claim;
 import org.eclipse.microprofile.jwt.Claims;
 import org.jboss.logging.Logger;
 
+import java.util.List;
+
 @Path("/contact")
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -52,7 +54,7 @@ public class ContactResource {
 
     @GET
     @RolesAllowed("USER")
-    public Response listContacts(@QueryParam("search") String _searchQuery) {
-        return Response.status(Response.Status.NOT_IMPLEMENTED).build();
+    public List<Contact> listContacts(@QueryParam("search") String _searchQuery) {
+        return contactService.listContactsByUser(subject);
     }
 }

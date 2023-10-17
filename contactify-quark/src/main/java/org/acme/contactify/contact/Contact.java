@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 import lombok.*;
 import org.acme.contactify.account.Account;
 
+import java.util.List;
+
 @Entity
 @Table(name = "contact")
 @Getter @Setter @AllArgsConstructor @RequiredArgsConstructor @NoArgsConstructor
@@ -23,4 +25,8 @@ public class Contact extends PanacheEntity {
     @ManyToOne(optional = false)
     @JsonbTransient
     private Account owner;
+
+    public static List<Contact> findByOwnerId(Account _owner) {
+        return list("owner", _owner);
+    }
 }

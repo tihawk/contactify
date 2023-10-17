@@ -15,6 +15,11 @@ export interface Spec {
           };
         }
         readonly responses: {
+          readonly "200": {
+            readonly content: {
+              readonly "application/json": (Spec["components"]["schemas"]["Contact"])[]
+            }
+          }
         }
       }
       readonly post: {

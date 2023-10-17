@@ -9,6 +9,7 @@ import io.quarkus.runtime.StartupEvent;
 import org.acme.contactify.account.Account;
 import org.acme.contactify.account.AccountRole;
 import org.acme.contactify.account.AccountService;
+import org.acme.contactify.contact.Contact;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,6 +31,21 @@ public class OnStartup {
 
         Account account = new Account("user", "user", Collections.singleton(userRole));
 
-        accountService.createUser(account);
+        account = accountService.createUser(account);
+
+        Contact contact = new Contact();
+        contact.setFirstName("Bob");
+        contact.setLastName("Skellington");
+        contact.setEmail("Bob.Skellington@lolbit.lol");
+        contact.setOwner(account);
+        contact.persist();
+
+        contact = new Contact();
+        contact.setFirstName("Bobbie");
+        contact.setLastName("Skellington");
+        contact.setPhoneNumber("+1235486325");
+        contact.setEmail("Bob.Skellington@lolbit.lol");
+        contact.setOwner(account);
+        contact.persist();
     }
 }

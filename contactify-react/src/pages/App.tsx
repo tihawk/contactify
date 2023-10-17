@@ -3,14 +3,14 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import ProTip from '../components/ProTip';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './HomePage';
-import LoginPage from './LoginPage';
+import Landing from './Landing';
+import Login from './Login';
 import { AuthContext } from '../util/AuthContext';
 import { useUser } from '../hooks/useUser';
 import NavBar from '../components/NavBar';
 import { CssBaseline, Drawer, Toolbar } from '@mui/material';
+import Dashboard from './Dashboard';
 
 function Copyright() {
   return (
@@ -29,11 +29,15 @@ function RoutesWrapper() {
       <Routes>
         <Route
             path="/"
-            element={<HomePage/>}
+            element={<Landing/>}
+        />
+        <Route
+            path="dashboard"
+            element={<Dashboard/>}
         />
         <Route
             path="login"
-            element={<LoginPage/>}
+            element={<Login/>}
         />
       </Routes>
   );
@@ -44,7 +48,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <NavBar/>
+        <NavBar user={user}/>
         <CssBaseline/>
         <Box component="main" sx={{
             backgroundColor: (theme) =>
@@ -58,11 +62,7 @@ export default function App() {
           }}>
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              Material UI Create React App example with styled-components in TypeScript
-            </Typography>
             <RoutesWrapper/>
-            <ProTip />
           </Container>
         </Box>
         <Box component="footer">
