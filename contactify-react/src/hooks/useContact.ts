@@ -8,7 +8,7 @@ export const useContact = () => {
   const loadData = async (query?: string) => {
     //@ts-ignore
     const res = await contactHandlers["/contact"].get(query)
-    if (res?.content?.length)
+    if (res?.content)
     setData(res.content)
   }
 

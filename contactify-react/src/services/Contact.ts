@@ -7,8 +7,10 @@ const token = JSON.parse(localStorage.getItem('user') || '{}').authToken
 type HandlerFns<Context> = HandlerFnsFromRootSpec<Spec, Context>
 export const contactHandlers: Pick<HandlerFns<{}>, '/contact' | '/contact/{id}'> = {
   '/contact': {
-    get: async () => {
-      const response = await fetch(API_URL + '/contact', {
+    // @ts-ignore
+    get: async (ctx?: string) => {
+      const url = API_URL + `/contact${ctx ? `?search=${ctx}` : ''}`
+      const response = await fetch(url, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
