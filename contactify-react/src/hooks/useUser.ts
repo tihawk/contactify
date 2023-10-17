@@ -23,6 +23,7 @@ export const useUser = () => {
       setLocalUser(null)
       setItem("user", "")
       navigate("/")
+      navigate(0)
     } else {
       // login
       const localUserRes = await login(user)
@@ -31,6 +32,7 @@ export const useUser = () => {
         setItem("user", JSON.stringify(localUserRes));
       }
       navigate("/dashboard")
+      navigate(0)
     }
   }
 

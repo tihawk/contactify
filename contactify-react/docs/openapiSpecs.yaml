@@ -16,6 +16,12 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contact'
         "401":
           description: Not Authorized
         "403":
@@ -204,4 +210,5 @@ components:
     SecurityScheme:
       type: http
       description: Authentication
-      scheme: basic
+      scheme: bearer
+      bearerFormat: JWT

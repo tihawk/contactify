@@ -34,6 +34,7 @@ export const contactHandlers: Pick<HandlerFns<{}>, '/contact' | '/contact/{id}'>
         headers: {
           'Content-Type': 'application/json',
           accept: 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(ctx),
       })
