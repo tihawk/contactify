@@ -3,7 +3,7 @@ import { AuthContext } from "../util/AuthContext";
 import { useLocalStorage } from "./useLocalStorage";
 import { AuthResponseDTO, User } from "../interfaces";
 import { userHandlers } from "../services/User";
-import { useNavigate } from "react-router";
+import History from "../util/History";
 
 export const useUser = () => {
   const { setItem, getItem } = useLocalStorage();
@@ -14,7 +14,6 @@ export const useUser = () => {
   // const { user } = useContext(AuthContext);
   const [localUser, setLocalUser] = useState<AuthResponseDTO | null>(null)
   const user = useMemo(() => getUser(), [localUser])
-  const navigate = useNavigate()
 
   const changeUser = async (user: User | null) => {
     console.log(user)
@@ -22,8 +21,8 @@ export const useUser = () => {
       // logout
       setLocalUser(null)
       setItem("user", "")
-      navigate("/")
-      navigate(0)
+      History.navigate("/")
+      History.navigate(0)
     } else {
       // login
       const localUserRes = await login(user)
@@ -31,8 +30,8 @@ export const useUser = () => {
         setLocalUser(localUserRes);
         setItem("user", JSON.stringify(localUserRes));
       }
-      navigate("/dashboard")
-      navigate(0)
+      History.navigate("/dashboard")
+      History.navigate(0)
     }
   }
 

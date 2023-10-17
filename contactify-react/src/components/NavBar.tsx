@@ -6,10 +6,7 @@ import { Link } from '@mui/material';
 import { useUser } from '../hooks/useUser';
 import { AuthResponseDTO } from '../interfaces';
 
-interface NavBarPropsI {
-  user: AuthResponseDTO | null
-}
-export default function NavBar({} : NavBarPropsI) {
+export default function NavBar() {
   const { user, changeUser } = useUser()
   const [componentUser, setUser] = React.useState<AuthResponseDTO | null>(user)
 
