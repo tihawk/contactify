@@ -45,11 +45,11 @@ function Dashboard() {
         <Grid item xs={12}>
           <Button color="primary" size="large" onClick={handleOpen}>Add Contact</Button>
         </Grid>
-        {data.length && data?.map((contact: Contact) => (
+        {data.length ? data?.map((contact: Contact) => (
           <Grid item key={contact.id}>
             <ContactCard editContact={handleEdit} deleteContact={handleDelete} contact={contact}/>
           </Grid>
-        ))}
+        )) : null}
       </Grid>
     </>
   )
