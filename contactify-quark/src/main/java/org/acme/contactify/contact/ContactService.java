@@ -58,8 +58,8 @@ public class ContactService {
         return dbContact;
     }
 
-    public List<Contact> listContactsByUser(String _subject) {
+    public List<Contact> listContactsByUser(String _query, String _subject) {
         Account owner = Account.find("username", _subject).firstResult();
-        return Contact.findByOwnerId(owner);
+        return Contact.search(_query, owner);
     }
 }

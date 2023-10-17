@@ -55,6 +55,6 @@ public class ContactResource {
     @GET
     @RolesAllowed("USER")
     public List<Contact> listContacts(@QueryParam("search") String _searchQuery) {
-        return contactService.listContactsByUser(subject);
+        return contactService.listContactsByUser(_searchQuery, subject);
     }
 }
